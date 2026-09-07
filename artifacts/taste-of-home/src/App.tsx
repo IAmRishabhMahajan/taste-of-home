@@ -182,10 +182,9 @@ function RsvpPage() {
   };
 
   const submit = form.handleSubmit((values) => {
-    if (step < 4) {
-      void next();
-      return;
-    }
+    // Only the final review step submits. Enter elsewhere must not advance or send.
+    console.info('[rsvp-build] enter-guard active — step', step);
+    if (step < 4) return;
     const payload: RsvpInput = attending
       ? { ...values, guests: 0 }
       : { ...values, attending: false, guests: 0, categoryId: 'declined', dishName: '', dishOrigin: '', dishMemory: '', guestDietary: [], guestAllergies: '', dishIngredients: '', dishDietary: [] };
@@ -236,13 +235,13 @@ function RsvpPage() {
                   {step === 4 && <StepReview form={form} event={event} categories={categories} attending={attending} onEdit={setStep} />}
                   {createRsvp.isError && <div className="mt-6 flex items-start gap-3 rounded-2xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive" data-testid="status-submit-error"><CircleAlert size={18} className="mt-0.5 shrink-0" /><span>We couldn’t save that RSVP just yet. Check the email address and your connection, then try again.</span></div>}
                   <div className="mt-9 flex items-center justify-between gap-4 border-t border-border/70 pt-6">
-                    {step > 1 ? <button type="button" onClick={back} data-testid="button-back" className="focus-ring inline-flex items-center gap-2 rounded-full px-2 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"><ArrowLeft size={16} /> Back</button> : <span />}
+                    {step > 1 ? <button type="button" onClick={(event) => { event.currentTarget.blur(); back(); }} data-testid="button-back" className="focus-ring inline-flex items-center gap-2 rounded-full px-2 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"><ArrowLeft size={16} /> Back</button> : <span />}
                     {step < 4 ? (
-                      <button type="button" onClick={() => void next()} data-testid="button-next" className="focus-ring inline-flex items-center gap-3 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[4px_4px_0_hsl(var(--secondary)/.18)] transition-transform hover:-translate-y-0.5 active:translate-y-0">
+                      <button key="wizard-next" type="button" onClick={(event) => { event.currentTarget.blur(); void next(); }} data-testid="button-next" className="focus-ring inline-flex items-center gap-3 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[4px_4px_0_hsl(var(--secondary)/.18)] transition-transform hover:-translate-y-0.5 active:translate-y-0">
                         Continue <ArrowRight size={16} />
                       </button>
                     ) : (
-                      <button type="submit" disabled={createRsvp.isPending} data-testid="button-submit-rsvp" className="focus-ring inline-flex items-center gap-3 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[4px_4px_0_hsl(var(--secondary)/.18)] transition-transform hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-60">
+                      <button key="wizard-submit" type="submit" disabled={createRsvp.isPending} data-testid="button-submit-rsvp" className="focus-ring inline-flex items-center gap-3 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[4px_4px_0_hsl(var(--secondary)/.18)] transition-transform hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-60">
                         {createRsvp.isPending ? 'Submitting your RSVP…' : 'Submit RSVP'} <Check size={16} />
                       </button>
                     )}
