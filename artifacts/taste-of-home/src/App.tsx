@@ -182,6 +182,10 @@ function RsvpPage() {
   };
 
   const submit = form.handleSubmit((values) => {
+    if (step < 4) {
+      void next();
+      return;
+    }
     const payload: RsvpInput = attending
       ? { ...values, guests: 0 }
       : { ...values, attending: false, guests: 0, categoryId: 'declined', dishName: '', dishOrigin: '', dishMemory: '', guestDietary: [], guestAllergies: '', dishIngredients: '', dishDietary: [] };
