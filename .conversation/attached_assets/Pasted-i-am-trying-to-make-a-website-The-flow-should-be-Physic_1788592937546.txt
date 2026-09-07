@@ -1,0 +1,216 @@
+i am trying to make a website:
+
+The flow should be:
+
+💌 Physical invitation → QR code → 🌐 A Taste of Home website → RSVP + dietary requirements + dish allocation
+
+And importantly, guests shouldn't freely choose any dish they want without seeing what's already been claimed.
+
+1. The website should have 4 stages
+① RSVP
+
+Are you joining us?
+
+Yes / No
+Name
+Phone/email
+Number attending
+② Tell us about your food
+
+Instead of:
+
+“What are you bringing?”
+
+Give them categories first.
+
+For example:
+
+CategoryTarget
+🍗 Main protein4–5
+🥬 Vegetarian main4
+🥔 Potato/vegetable sides5
+🥗 Salads4
+🍚 Rice/grains3
+🍝 Pasta/noodle dishes3
+🥖 Bread/rolls3
+🧀 Appetisers/snacks5
+🥧 Desserts5
+🍪 Childhood/nostalgic treats4
+🥤 Drinks5
+
+These don't need to be exact — they're targets.
+
+Then the website can say:
+
+Pick a category you'd like to contribute to. We'll make sure the table has a good balance!
+
+2. Make the choices specific
+
+This is the important bit.
+
+Someone selects:
+
+🥖 Bread & Baked Goods
+
+Choose something that can be shared by 8–10 people.
+
+Someone else:
+
+🥗 Salad / Vegetable
+
+We're looking for something fresh or vegetable-forward.
+
+Someone else:
+
+🍗 Protein
+
+Chicken, turkey, fish or another meat you enjoy — please note ingredients.
+
+Someone vegetarian:
+
+🌱 Vegetarian Main
+
+A substantial vegetarian dish that can serve 8–10.
+
+This means you aren't relying on everyone to interpret “bring a dish” differently.
+
+3. HAVE A LIVE "WHAT'S NEEDED" SECTION
+
+This is where your website could be really cool.
+
+After someone RSVPs, show:
+
+What does our table need?
+
+🟢 Still needed
+
+2 × salads
+2 × vegetables
+2 × bread
+1 × vegetarian main
+2 × desserts
+2 × drinks
+
+🔴 Already covered
+
+Rice
+Curry
+Pasta
+Chicken
+
+Then people select from what's actually needed.
+
+That solves your “everyone brings biryani” problem. 😂
+
+4. Dietary requirements need to be separate
+
+Don't make dietary information dependent on what they're bringing.
+
+Have:
+
+About your food
+
+I eat:
+
+☐ Everything
+
+☐ Vegetarian
+
+☐ Vegan
+
+☐ Halal
+
+☐ No beef
+
+☐ No pork
+
+☐ No seafood
+
+☐ Gluten-free
+
+☐ Other
+
+Allergies
+
+Free text box.
+
+Then you have one master dietary matrix.
+
+For example:
+
+GuestBringingDietary
+SarahSaladVegetarian
+JinDumplingsNo pork
+PriyaCurryVegetarian
+AlexBreadGluten-free
+
+This becomes incredibly useful when you're planning the table.
+
+5. BUT I would add one more question
+
+This is what makes A Taste of Home different.
+
+🏠 Tell us about your dish
+
+What are you bringing?
+
+Dish name
+
+Where does it come from?
+
+“My mum makes this every Christmas...”
+
+What does it remind you of?
+
+That information can then become your food labels at the actual event.
+
+6. The physical invitation should NOT contain all the logistics
+
+Keep it beautiful.
+
+The physical card should essentially say:
+
+A Taste of Home
+Friendsgiving 2026
+
+From our homes to one table.
+
+We're bringing together our favourite people for an evening of food, stories, friendship and gratitude.
+
+Bring something that tastes like home to you — and come meet the people who make this year worth being grateful for.
+
+[DATE]
+
+[TIME]
+
+NCPV MCR
+
+Your seat is waiting.
+
+RSVP → [QR CODE]
+
+Then underneath, tiny:
+
+Please RSVP by [DATE] and tell us what you're bringing.
+
+That's it.
+
+7. The QR code is the transition
+
+When they scan it, the website opens with:
+
+Welcome to A Taste of Home 🤎
+
+Before we gather around one table, we need to know what everyone's bringing to it.
+
+[ RSVP ]
+
+Then the website takes them through the whole experience.
+
+And I would make the website visually feel like the invitation
+
+Cream background + kraft textures + burgundy/olive accents + handwritten typography + little food illustrations.
+
+So the physical invitation feels like a preview of the website, rather than two unrelated things.
+
+The key is that you maintain the master list while guests only see the available categories/options. That gives you control over the balance of food and dietary coverage without making the RSVP feel like an administrative Google Form.

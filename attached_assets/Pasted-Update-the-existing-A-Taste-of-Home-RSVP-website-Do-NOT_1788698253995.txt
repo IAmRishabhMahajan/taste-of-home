@@ -1,0 +1,143 @@
+Update the existing A Taste of Home RSVP website.
+
+Do NOT redesign the website or change its existing visual style, layout, colours, typography, or functionality unless explicitly requested below.
+
+1. Food category allocation for exactly 50 invited people
+
+I am inviting exactly 50 people.
+
+There are NO +1s and NO additional guests.
+
+Each RSVP represents exactly one invited person.
+
+There are 11 existing food categories:
+
+Main Protein
+Vegetarian Main
+Potato / Vegetable Sides
+Salads
+Rice / Grains
+Pasta / Noodle Dishes
+Bread / Rolls
+Appetisers / Snacks
+Desserts
+Childhood / Nostalgic Treats
+Drinks
+
+Redistribute the targets across these 11 categories so that they add up to exactly 50 total contributions.
+
+Use sensible proportions so the table is balanced rather than dividing the number equally between categories.
+
+2. Remove Shay's test entry
+
+There is currently an entry under Main Protein associated with:
+
+Shay - Guest and Organiser
+
+Remove this test entry completely.
+
+It must not count toward the allocation.
+
+3. NO +1 functionality
+
+There are exactly 50 invited people.
+
+Remove/disable any functionality that allows:
+
++1s
+Additional guests
+Number attending
+Multiple attendees under one RSVP
+Adding another person's name
+
+Every RSVP represents exactly one person.
+
+The flow should be:
+
+Name → RSVP → Food contribution → Dietary requirements → Dish information → Submit
+
+4. Guest tab: simplify it completely
+
+The Guest tab should NOT show the food-category breakdown or allocation targets.
+
+Remove anything that shows:
+
+Category targets
+How many dishes are needed
+How many are remaining
+Category capacity
+Allocation statistics
+Percentages
+Any other breakdown or planning information
+
+Guests only need to see who is coming, what they are bringing, and their dietary requirements.
+
+The Guest tab should contain ONLY:
+
+Everyone who's coming
+Names around the table
+
+Then show a simple list/table containing:
+
+Name | Bringing | Dietary requirements
+
+For example:
+
+Name	Bringing	Dietary requirements
+Sarah	Greek Salad	Vegetarian
+Jin	Dumplings	No pork
+Priya	Paneer Curry	Vegetarian
+Alex	Sourdough	Gluten-free
+
+Nothing else is required in the Guest tab.
+
+Do not show category targets or allocation statistics there.
+
+5. Keep the food allocation logic in the RSVP flow
+
+The allocation system itself should still work behind the scenes.
+
+When a person is choosing what to contribute, they should be able to see which categories are still needed so that the table remains balanced.
+
+However, once the RSVP is submitted, guests should only see the simple "Everyone who's coming / Names around the table" information.
+
+6. Keep the existing design
+
+Do not change:
+
+A Taste of Home branding
+Welcome page
+Colours
+Typography
+Overall visual style
+Existing food category descriptions
+Dietary options
+Allergy field
+Dish name
+"Where does it come from?"
+"What does it remind you of?"
+Existing RSVP experience
+
+Only make the changes described above.
+
+7. Test everything
+
+Before finishing, test that:
+
+One RSVP = one invited person.
+There is no +1 functionality.
+There is no "number attending" field.
+The 11 category targets total exactly 50.
+Shay's test entry is removed.
+Category availability still works during food selection.
+The Guest tab contains ONLY:
+
+Everyone who's coming
+
+Names around the table
+
+with:
+
+Name | Bringing | Dietary requirements
+
+No category breakdown or statistics are visible in the Guest tab.

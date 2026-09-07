@@ -1,0 +1,402 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: event
+    description: Friendsgiving event and RSVP operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /event/availability:
+    get:
+      operationId: getEventAvailability
+      tags: [event]
+      summary: Get live dish category availability
+      responses:
+        "200":
+          description: Current event availability
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventAvailability"
+  /rsvps:
+    get:
+      operationId: listRsvps
+      tags: [event]
+      summary: List submitted RSVPs for the protected organiser view
+      responses:
+        "200":
+          description: Submitted RSVPs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Rsvp"
+        "401":
+          description: Organiser password required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      operationId: createRsvp
+      tags: [event]
+      summary: Submit an RSVP and dish allocation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RsvpInput"
+      responses:
+        "201":
+          description: RSVP submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Rsvp"
+        "409":
+          description: Selected category is no longer available
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /rsvps/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: RSVP record id
+    patch:
+      operationId: updateRsvp
+      tags: [event]
+      summary: Update an RSVP from the protected organiser view
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RsvpInput"
+      responses:
+        "200":
+          description: RSVP updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Rsvp"
+        "400":
+          description: Invalid RSVP
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Organiser password required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: RSVP not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Selected category is already full
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteRsvp
+      tags: [event]
+      summary: Delete an RSVP from the protected organiser view
+      responses:
+        "204":
+          description: RSVP deleted
+        "401":
+          description: Organiser password required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: RSVP not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /guest/rsvps:
+    get:
+      operationId: listGuestRsvps
+      tags: [event]
+      summary: List the safe RSVP summary for the guest view
+      responses:
+        "200":
+          description: Public RSVP summary
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GuestRsvp"
+  /organiser/auth:
+    post:
+      operationId: loginOrganiser
+      tags: [event]
+      summary: Authenticate the organiser view
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+              required:
+                - password
+      responses:
+        "200":
+          description: Organiser authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authenticated:
+                    type: boolean
+                required:
+                  - authenticated
+        "401":
+          description: Incorrect organiser password
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    DishCategory:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        shortName:
+          type: string
+        description:
+          type: string
+        target:
+          type: integer
+        claimed:
+          type: integer
+        remaining:
+          type: integer
+      required:
+        - id
+        - name
+        - shortName
+        - description
+        - target
+        - claimed
+        - remaining
+    EventAvailability:
+      type: object
+      properties:
+        eventName:
+          type: string
+        date:
+          type: string
+        time:
+          type: string
+        location:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/DishCategory"
+      required:
+        - eventName
+        - date
+        - time
+        - location
+        - categories
+    Rsvp:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        contact:
+          type: string
+          format: email
+        attending:
+          type: boolean
+        guests:
+          type: integer
+        categoryId:
+          type: string
+        dishName:
+          type: string
+        dishOrigin:
+          type: string
+        dishMemory:
+          type: string
+        guestDietary:
+          type: array
+          items:
+            type: string
+        guestAllergies:
+          type: string
+        dishIngredients:
+          type: string
+        dishDietary:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - contact
+        - attending
+        - guests
+        - categoryId
+        - dishName
+        - dishOrigin
+        - dishMemory
+        - guestDietary
+        - guestAllergies
+        - dishIngredients
+        - dishDietary
+        - createdAt
+    GuestRsvp:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        attending:
+          type: boolean
+        categoryId:
+          type: string
+        dishName:
+          type: string
+        guestDietary:
+          type: array
+          items:
+            type: string
+        guestAllergies:
+          type: string
+        dishIngredients:
+          type: string
+        dishDietary:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - attending
+        - categoryId
+        - dishName
+        - guestDietary
+        - guestAllergies
+        - dishIngredients
+        - dishDietary
+        - createdAt
+    RsvpInput:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        contact:
+          type: string
+          minLength: 1
+          format: email
+        attending:
+          type: boolean
+        guests:
+          type: integer
+          minimum: 0
+          maximum: 20
+        categoryId:
+          type: string
+        dishName:
+          type: string
+        dishOrigin:
+          type: string
+        dishMemory:
+          type: string
+        guestDietary:
+          type: array
+          items:
+            type: string
+        guestAllergies:
+          type: string
+        dishIngredients:
+          type: string
+        dishDietary:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - contact
+        - attending
+        - guests
+        - categoryId
+        - dishName
+        - dishOrigin
+        - dishMemory
+        - guestDietary
+        - guestAllergies
+        - dishIngredients
+        - dishDietary
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+

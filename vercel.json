@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "pnpm --filter @workspace/api-server run build && BASE_PATH=/ PORT=3000 pnpm --filter @workspace/taste-of-home run build",
+  "outputDirectory": "artifacts/taste-of-home/dist/public",
+  "functions": {
+    "api/index.mjs": {
+      "includeFiles": "artifacts/api-server/dist/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/api", "destination": "/api" },
+    { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/((?!api(?:/|$)).*)", "destination": "/index.html" }
+  ]
+}

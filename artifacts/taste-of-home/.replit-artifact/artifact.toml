@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "A Taste of Home RSVP"
+description = "A warm Friendsgiving RSVP website that guides guests through attendance, dietary requirements, live dish category allocation, and the story behind what they bring."
+version = "1.0.0"
+id = "artifacts/taste-of-home"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25718
+
+[services.development]
+run = "pnpm --filter @workspace/taste-of-home run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/taste-of-home", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/taste-of-home/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25718"
+BASE_PATH = "/"
